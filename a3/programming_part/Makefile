@@ -13,8 +13,12 @@ default: all
 %.o: %.cpp $(HEADERS)
 	g++ -std=c++11 -c $< -o $@
 
-all: $(OBJECTS_P1) $(OBJECTS_P2)
+all: p1_attack p2_attack
+
+p1_attack: $(OBJECTS_P1)
 	g++ $(OBJECTS_P1) -o p1_attack
+
+p2_attack: $(OBJECTS_P2)
 	g++ $(OBJECTS_P2) -o p2_attack
 
 clean:

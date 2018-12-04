@@ -6,8 +6,6 @@
 
 using namespace std;
 
-bool cmp (long i, long j) { return (i<j); }
-
 bool done (vector<long> diff, long rem) {
 	for (unsigned int i = 0; i < diff.size(); i++) {
 		if (diff[i] % rem != 0) return false;
@@ -18,33 +16,29 @@ bool done (vector<long> diff, long rem) {
 int main(int argc, char* argv[]) {
 	vector<long> lst;
 	ifstream fin{argv[1]};
-	ofstream fout{argv[2]};
 
 	for (long n; fin >> n;) {
 		lst.push_back(n);
 	}
 
-	sort(lst.begin(), lst.end(), cmp);
-
-	long max = lst[lst.size()-1];
+	long min = lst[lst.size()-1];
 	vector<long> diff;
 	for (unsigned int i = 0; i < lst.size()-1; i++) {
-		long d = lst[i+1] - lst[i];
-		max = max < d ? d : max;
+		long d = abs(lst[i+1] - lst[i]);
+		min = min < d ? min : d;
 		diff.push_back(d);
 	}
 
-	long ans = 1;
-	for (long i = 2; i < sqrt(max); i++) {
+	long s = 1;
+	for (long i = sqrt(min); i > 1; i--) {
 		if (done(diff, i)) {
-			ans *= i;
-			max /= i;
-			for (auto &e : diff) e /= i;
-			i = 2;
+			s *= i;
+			break;
 		}
 	}
 
-	fout << ans << endl;
+	ofstream fout{argv[2]};
+	for (long e: lst) fout << e / s << endl;
 
 	return 0;
 }
