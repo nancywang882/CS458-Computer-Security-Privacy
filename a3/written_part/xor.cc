@@ -3,10 +3,10 @@
 
 using namespace std;
 
-int main () {
-	ifstream fin1{"ciphertext1"};
-	ifstream fin2{"ciphertext2"};
-	ofstream fout{"xor"};
+int main (int argc, char * argv []) {
+	ifstream fin1{argv[1]};
+	ifstream fin2{argv[2]};
+	ofstream fout{argv[3]};
 	char c1, c2;
 	for (int i = 0; i < 300; i++) {
 		fin1 >> noskipws >> c1;
